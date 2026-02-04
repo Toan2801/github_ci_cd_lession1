@@ -13,29 +13,17 @@ double multiply(double a, double b) {
     return a * b;
 }
 
-double divide(double a, double b) {
+Std_ReturnType divide(double a, double b, double* result) {
+    Std_ReturnType ret = E_NOT_OK;
     if (b == 0.0) {
         printf("Error: Division by zero!\n");
-        return 0.0;
+    } else {
+        ret = E_OK;
+        *result = a / b;
     }
-    return a / b;
+    return ret;
 }
 
 int main(void) {
-    double x = 10.0;
-    double y = 5.0;
-
-    printf("Calculator demo\n");
-    printf("----------------\n");
-
-    printf("Add:        %.2f + %.2f = %.2f\n", x, y, add(x, y));
-    printf("Subtract:   %.2f - %.2f = %.2f\n", x, y, subtract(x, y));
-    printf("Multiply:   %.2f * %.2f = %.2f\n", x, y, multiply(x, y));
-    printf("Divide:     %.2f / %.2f = %.2f\n", x, y, divide(x, y));
-
-    /* Test chia cho 0 */
-    printf("\nTest division by zero:\n");
-    divide(x, 0.0);
-
     return 0;
 }
