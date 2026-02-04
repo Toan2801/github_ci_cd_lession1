@@ -1,0 +1,27 @@
+name: C (gcc on Windows via MSYS2)
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-run:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup MSYS2 + gcc
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          install: mingw-w64-ucrt-x86_64-gcc
+
+      - name: Compile
+        shell: msys2 {0}
+        run: gcc -Wall -Wextra -O2 hello_world.c -o hello_world.exe
+
+      - name: Run
+        shell: msys2 {0}
+        run: ./hello_world.exe

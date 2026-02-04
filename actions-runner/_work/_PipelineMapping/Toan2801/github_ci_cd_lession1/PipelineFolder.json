@@ -1,0 +1,12 @@
+﻿{
+  "repositoryName": "Toan2801/github_ci_cd_lession1",
+  "pipelineDirectory": "github_ci_cd_lession1",
+  "workspaceDirectory": "github_ci_cd_lession1\\github_ci_cd_lession1",
+  "repositories": {
+    "Toan2801/github_ci_cd_lession1": {
+      "repositoryPath": "github_ci_cd_lession1\\github_ci_cd_lession1",
+      "lastRunOn": "02/04/2026 08:49:31 +07:00"
+    }
+  },
+  "lastRunOn": "02/04/2026 08:50:09 +07:00"
+}
