@@ -1,0 +1,18 @@
+name: Clean calculator
+
+on:
+  workflow_dispatch:
+
+jobs:
+  clean:
+    runs-on: self-hosted
+    timeout-minutes: 5
+
+    steps:
+      - name: Clean artifacts
+        shell: cmd
+        run: |
+          cd /d "%GITHUB_WORKSPACE%"
+          echo Cleaning build outputs...
+          del /f /q calculator.exe 2>nul
+          dir
