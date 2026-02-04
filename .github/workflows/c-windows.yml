@@ -1,4 +1,4 @@
-name: C (gcc on Windows via MSYS2)
+name: C (gcc self-hosted via MSYS2 UCRT64)
 
 on:
   push:
@@ -6,22 +6,30 @@ on:
 
 jobs:
   build-and-run:
-    runs-on: windows-latest
+    runs-on: self-hosted
+    timeout-minutes: 10
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Setup MSYS2 + gcc
-        uses: msys2/setup-msys2@v2
         with:
-          msystem: UCRT64
-          install: mingw-w64-ucrt-x86_64-gcc
+          fetch-depth: 1
+          lfs: false
+          submodules: false
 
-      - name: Compile
-        shell: msys2 {0}
-        run: gcc -Wall -Wextra -O2 hello_world.c -o hello_world.exe
+      - name: Verify gcc (UCRT64)
+        shell: cmd
+        run: |
+          "C:\msys64\ucrt64.exe" -lc "gcc --version"
 
-      - name: Run
-        shell: msys2 {0}
-        run: ./hello_world.exe
+      - name: Compile (UCRT64)
+        shell: cmd
+        run: |
+          "C:\msys64\ucrt64.exe" -lc "cd \"$GITHUB_WORKSPACE\" && gcc -Wall -Wextra -O2 hello_world.c -o hello_world.exe"
+
+      - name: Run (direct)
+        shell: cmd
+        run: |
+          cd /d "%GITHUB_WORKSPACE%"
+          hello_world.exe
+          echo ExitCode=%ERRORLEVEL%

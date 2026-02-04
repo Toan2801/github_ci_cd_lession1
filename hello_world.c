@@ -1,6 +1,6 @@
 #include <stdio.h>
 
 int main(void) {
-    printf("Hello world from gcc + VS Code!\n");
+    fprintf(stderr, "Hello world\n");
     return 0;
 }
