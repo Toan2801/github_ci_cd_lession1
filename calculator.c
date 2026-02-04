@@ -1,26 +1,21 @@
 #include <stdio.h>
+#include "calculator.h"
 
-/* Hàm cộng */
 double add(double a, double b) {
     return a + b;
 }
 
-/* Hàm trừ */
 double subtract(double a, double b) {
     return a - b;
 }
 
-/* Hàm nhân */
 double multiply(double a, double b) {
     return a * b;
 }
 
-/* Hàm chia
- * Trả về 0 nếu chia cho 0 và in cảnh báo
- */
 double divide(double a, double b) {
     if (b == 0.0) {
-        fprintf(stderr, "Error: Division by zero!\n");
+        printf("Error: Division by zero!\n");
         return 0.0;
     }
     return a / b;

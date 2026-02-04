@@ -1,41 +1,36 @@
-name: Build and Run calculator
+name: Test calculator with report
 
 on:
   workflow_dispatch:
 
 jobs:
-  build-and-run:
+  test-and-report:
     runs-on: self-hosted
     timeout-minutes: 10
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 1
-          lfs: false
-          submodules: false
 
-      - name: Verify gcc (UCRT64)
-        shell: cmd
-        run: |
-          "C:\msys64\ucrt64.exe" -lc "gcc --version"
-
-      - name: Compile
+      - name: Compile tests
         shell: cmd
         run: |
           cd /d "%GITHUB_WORKSPACE%"
-          "C:\msys64\ucrt64\bin\gcc.exe" -Wall -Wextra -O2 calculator.c -o calculator.exe
+          "C:\msys64\ucrt64\bin\gcc.exe" -Wall -Wextra -O2 calculator.c test_case.c -o test_case.exe
           dir
-      
-      - name: Run
+
+      - name: Run tests and creates report
         shell: cmd
         run: |
           cd /d "%GITHUB_WORKSPACE%"
-          calculator.exe
+          test_case.exe
+          echo ExitCode=%ERRORLEVEL%
+          dir
+          type report.txt
 
-      - name: Upload artifact
+      - name: Upload report artifact
         uses: actions/upload-artifact@v4
         with:
-          name: calculator-exe
-          path: ${{ github.workspace }}\calculator.exe
+          name: test-report
+          path: ${{ github.workspace }}\report.txt
