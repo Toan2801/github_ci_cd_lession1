@@ -1,0 +1,35 @@
+name: Test calculator
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-run:
+    runs-on: self-hosted
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          lfs: false
+          submodules: false
+
+      - name: Verify gcc (UCRT64)
+        shell: cmd
+        run: |
+          "C:\msys64\ucrt64.exe" -lc "gcc --version"
+
+      - name: Compile
+        shell: cmd
+        run: |
+          cd /d "%GITHUB_WORKSPACE%"
+          "C:\msys64\ucrt64\bin\gcc.exe" -Wall -Wextra -O2 calculator.c -o calculator.exe
+          dir
+      
+      - name: Run
+        shell: cmd
+        run: |
+          cd /d "%GITHUB_WORKSPACE%"
+          calculator.exe

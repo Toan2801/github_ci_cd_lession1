@@ -1,4 +1,4 @@
-name: C (gcc self-hosted via MSYS2 UCRT64)
+name: Hello World
 
 on:
   workflow_dispatch:
@@ -26,7 +26,8 @@ jobs:
         run: |
           "C:\msys64\ucrt64.exe" -lc "cd \"$GITHUB_WORKSPACE\" && gcc -Wall -Wextra -O2 hello_world.c -o hello_world.exe"
 
-      - name: Run (UCRT64)
+      - name: Run
         shell: cmd
         run: |
-          "C:\msys64\ucrt64.exe" -lc "cd \"$GITHUB_WORKSPACE\" && echo PWD: && pwd && echo FILES: && ls -la && echo RUN: && ./hello_world.exe && echo EXIT:$?"
+          cd /d "%GITHUB_WORKSPACE%"
+          hello_world.exe
