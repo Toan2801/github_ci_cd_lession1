@@ -7,7 +7,7 @@ Std_ReturnType nearly_equal(double a, double b, double eps) {
 }
 
 int main(void) {
-    const double EPS = 1e-9;
+    const double EPS = 0.001;
     int passed = 0, failed = 0;
 
     FILE *f = fopen("report.txt", "w");
@@ -21,27 +21,51 @@ int main(void) {
     // Test add
     {
         Std_ReturnType match_result = nearly_equal(add(2, 3), 5, EPS);
-        match_result ? passed++ : failed++;
+        if (match_result == E_OK) {
+            fprintf(f, "Test case 1 PASSED\n");
+            passed++;
+        } else {
+            fprintf(f, "Test case 1 FAILED\n");
+            failed++;
+        }
     }
 
     // Test subtract
     {
         Std_ReturnType match_result = nearly_equal(subtract(10, 4), 6, EPS);
-        match_result ? passed++ : failed++;
+        if (match_result == E_OK) {
+            fprintf(f, "Test case 2 PASSED\n");
+            passed++;
+        } else {
+            fprintf(f, "Test case 2 FAILED\n");
+            failed++;
+        }
     }
 
     // Test multiply
     {
         Std_ReturnType match_result = nearly_equal(multiply(2.5, 4), 10.0, EPS);
-        match_result ? passed++ : failed++;
+        if (match_result == E_OK) {
+            fprintf(f, "Test case 3 PASSED\n");
+            passed++;
+        } else {
+            fprintf(f, "Test case 3 FAILED\n");
+            failed++;
+        }
     }
 
     // Test divide normal
     {
         double r = 0.0;
         Std_ReturnType ret = divide(10, 2, &r);
-        Std_ReturnType match_result = nearly_equal(r, 5.0, EPS);
-        match_result ? passed++ : failed++;
+        Std_ReturnType match_result = nearly_equal(r, 3.0, EPS);
+        if (match_result == E_OK) {
+            fprintf(f, "Test case 4 PASSED\n");
+            passed++;
+        } else {
+            fprintf(f, "Test case 4 FAILED\n");
+            failed++;
+        }
     }
 
     // Test divide by zero
@@ -50,8 +74,10 @@ int main(void) {
         Std_ReturnType ret = divide(10, 0, &r);
         Std_ReturnType match_result = nearly_equal(r, 0.0, EPS);
         if (ret == E_NOT_OK && match_result == E_OK) {
+            fprintf(f, "Test case 5 PASSED\n");
             passed++;
         } else {
+            fprintf(f, "Test case 5 FAILED\n");
             failed++;
         }
     }

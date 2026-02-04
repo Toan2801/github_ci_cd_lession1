@@ -1,0 +1,8 @@
+{
+  "code-runner.runInTerminal": true,
+  "code-runner.clearPreviousOutput": true,
+
+  "code-runner.executorMap": {
+    "c": "cmd /c \"cd /d $dir && \\\"C:\\\\msys64\\\\ucrt64\\\\bin\\\\gcc.exe\\\" -Wall -Wextra -O2 *.c -o app.exe && app.exe\""
+  }
+}
